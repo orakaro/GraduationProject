@@ -1,0 +1,116 @@
+CLOG-02.44
+is_big_endian = TRUE
+is_finalized = TRUE
+num_buffered_blocks = 128
+block_size = 65536
+max_comm_world_size = 7
+max_thread_count = 1
+known_eventID_start = 0
+user_eventID_start = 600
+known_solo_eventID_start = -10
+user_solo_eventID_start = 5000
+known_stateID_count = 300
+user_stateID_count = 0
+known_solo_eventID_count = 2
+user_solo_eventID_count = 0
+commIDs_table_file_offset = 66560
+GID=917322060-1293075792.801913-tbtex LID=0 kind=IntraComm 
+GID=286463814-1293075792.802006-tbtex LID=1 kind=IntraComm 
+GID=434537989-1293075792.841036-tbtex LID=2 kind=Unknown(-1)
+GID=157088059-1293075792.839494-tbtex LID=3 kind=Unknown(-1)
+GID=2027121778-1293075792.846937-tbtex LID=4 kind=Unknown(-1)
+GID=1749671848-1293075792.821763-tbtex LID=5 kind=Unknown(-1)
+GID=1472221919-1293075792.866133-tbtex LID=6 kind=Unknown(-1)
+GID=1194771989-1293075792.903647-tbtex LID=7 kind=Unknown(-1)
+ts=0.000006 icomm=0 rank=0 thd=0 type=shft shift=-0.000000
+ts=0.000012 icomm=0 rank=0 thd=0 type=comm et=CommWorldCreate icomm=0 rank=0 wrank=0 gcomm=917322060-1293075792.801913-tbtex
+ts=0.000015 icomm=0 rank=2 thd=0 type=shft shift=-0.000009
+ts=0.000016 icomm=0 rank=0 thd=0 type=comm et=CommSelfCreate  icomm=1 rank=0 wrank=0 gcomm=286463814-1293075792.802006-tbtex
+ts=0.000021 icomm=0 rank=0 thd=0 type=cdef et=-201 name=MPI_PROC_NULL value=-1
+ts=0.000022 icomm=0 rank=2 thd=0 type=comm et=CommWorldCreate icomm=0 rank=2 wrank=2 gcomm=917322060-1293075792.801913-tbtex
+ts=0.000027 icomm=0 rank=2 thd=0 type=comm et=CommSelfCreate  icomm=3 rank=0 wrank=2 gcomm=157088059-1293075792.839494-tbtex
+ts=0.000031 icomm=0 rank=0 thd=0 type=cdef et=-201 name=MPI_ANY_SOURCE value=-2
+ts=0.000035 icomm=0 rank=0 thd=0 type=cdef et=-201 name=MPI_ANY_TAG value=-1
+ts=0.000119 icomm=0 rank=0 thd=0 type=bare et=48
+ts=0.000123 icomm=0 rank=2 thd=0 type=bare et=48
+ts=0.000124 icomm=0 rank=0 thd=0 type=bare et=49
+ts=0.000129 icomm=0 rank=2 thd=0 type=bare et=49
+ts=0.000130 icomm=0 rank=0 thd=0 type=bare et=54
+ts=0.000135 icomm=0 rank=2 thd=0 type=bare et=54
+ts=0.000135 icomm=0 rank=0 thd=0 type=bare et=55
+ts=0.000139 icomm=0 rank=2 thd=0 type=bare et=55
+ts=0.000144 icomm=0 rank=0 thd=0 type=bare et=162
+ts=0.000148 icomm=0 rank=2 thd=0 type=bare et=162
+ts=0.000151 icomm=0 rank=0 thd=0 type=msg  et=send icomm=0 rank=1 tag=0 sz=4
+ts=0.000156 icomm=0 rank=2 thd=0 type=msg  et=send icomm=0 rank=3 tag=0 sz=4
+ts=0.000201 icomm=0 rank=1 thd=0 type=shft shift=-0.000196
+ts=0.000203 icomm=0 rank=3 thd=0 type=shft shift=-0.000196
+ts=0.000206 icomm=0 rank=1 thd=0 type=comm et=CommWorldCreate icomm=0 rank=1 wrank=1 gcomm=917322060-1293075792.801913-tbtex
+ts=0.000208 icomm=0 rank=3 thd=0 type=comm et=CommWorldCreate icomm=0 rank=3 wrank=3 gcomm=917322060-1293075792.801913-tbtex
+ts=0.000211 icomm=0 rank=1 thd=0 type=comm et=CommSelfCreate  icomm=2 rank=0 wrank=1 gcomm=434537989-1293075792.841036-tbtex
+ts=0.000214 icomm=0 rank=3 thd=0 type=comm et=CommSelfCreate  icomm=4 rank=0 wrank=3 gcomm=2027121778-1293075792.846937-tbtex
+ts=0.000280 icomm=0 rank=1 thd=0 type=bare et=48
+ts=0.000283 icomm=0 rank=1 thd=0 type=bare et=49
+ts=0.000287 icomm=0 rank=1 thd=0 type=bare et=54
+ts=0.000289 icomm=0 rank=3 thd=0 type=bare et=48
+ts=0.000292 icomm=0 rank=1 thd=0 type=bare et=55
+ts=0.000294 icomm=0 rank=3 thd=0 type=bare et=49
+ts=0.000298 icomm=0 rank=3 thd=0 type=bare et=54
+ts=0.000301 icomm=0 rank=1 thd=0 type=bare et=162
+ts=0.000303 icomm=0 rank=3 thd=0 type=bare et=55
+ts=0.000309 icomm=0 rank=1 thd=0 type=msg  et=send icomm=0 rank=2 tag=0 sz=4
+ts=0.000310 icomm=0 rank=3 thd=0 type=bare et=162
+ts=0.000318 icomm=0 rank=3 thd=0 type=msg  et=send icomm=0 rank=4 tag=0 sz=4
+ts=0.000900 icomm=0 rank=4 thd=0 type=shft shift=-0.000895
+ts=0.000903 icomm=0 rank=4 thd=0 type=comm et=CommWorldCreate icomm=0 rank=4 wrank=4 gcomm=917322060-1293075792.801913-tbtex
+ts=0.000906 icomm=0 rank=4 thd=0 type=comm et=CommSelfCreate  icomm=5 rank=0 wrank=4 gcomm=1749671848-1293075792.821763-tbtex
+ts=0.000977 icomm=0 rank=4 thd=0 type=bare et=48
+ts=0.000981 icomm=0 rank=4 thd=0 type=bare et=49
+ts=0.000984 icomm=0 rank=4 thd=0 type=bare et=54
+ts=0.000988 icomm=0 rank=4 thd=0 type=bare et=55
+ts=0.000994 icomm=0 rank=4 thd=0 type=bare et=162
+ts=0.001002 icomm=0 rank=4 thd=0 type=msg  et=send icomm=0 rank=5 tag=0 sz=4
+ts=0.001045 icomm=0 rank=5 thd=0 type=shft shift=-0.001042
+ts=0.001050 icomm=0 rank=5 thd=0 type=comm et=CommWorldCreate icomm=0 rank=5 wrank=5 gcomm=917322060-1293075792.801913-tbtex
+ts=0.001054 icomm=0 rank=5 thd=0 type=comm et=CommSelfCreate  icomm=6 rank=0 wrank=5 gcomm=1472221919-1293075792.866133-tbtex
+ts=0.001114 icomm=0 rank=5 thd=0 type=bare et=48
+ts=0.001117 icomm=0 rank=5 thd=0 type=bare et=49
+ts=0.001121 icomm=0 rank=5 thd=0 type=bare et=54
+ts=0.001125 icomm=0 rank=5 thd=0 type=bare et=55
+ts=0.001132 icomm=0 rank=5 thd=0 type=bare et=162
+ts=0.001137 icomm=0 rank=5 thd=0 type=msg  et=send icomm=0 rank=6 tag=0 sz=4
+ts=0.001172 icomm=0 rank=5 thd=0 type=msg  et=recv icomm=0 rank=4 tag=0 sz=4
+ts=0.001174 icomm=0 rank=5 thd=0 type=bare et=163
+ts=0.001404 icomm=0 rank=6 thd=0 type=shft shift=-0.001399
+ts=0.001408 icomm=0 rank=6 thd=0 type=comm et=CommWorldCreate icomm=0 rank=6 wrank=6 gcomm=917322060-1293075792.801913-tbtex
+ts=0.001411 icomm=0 rank=6 thd=0 type=comm et=CommSelfCreate  icomm=7 rank=0 wrank=6 gcomm=1194771989-1293075792.903647-tbtex
+ts=0.001475 icomm=0 rank=6 thd=0 type=bare et=48
+ts=0.001478 icomm=0 rank=6 thd=0 type=bare et=49
+ts=0.001482 icomm=0 rank=6 thd=0 type=bare et=54
+ts=0.001486 icomm=0 rank=6 thd=0 type=bare et=55
+ts=0.001493 icomm=0 rank=6 thd=0 type=bare et=162
+ts=0.001500 icomm=0 rank=6 thd=0 type=msg  et=send icomm=0 rank=0 tag=0 sz=4
+ts=0.001867 icomm=0 rank=5 thd=0 type=bare et=-9
+ts=0.003919 icomm=0 rank=3 thd=0 type=msg  et=recv icomm=0 rank=2 tag=0 sz=4
+ts=0.003923 icomm=0 rank=3 thd=0 type=bare et=163
+ts=0.003957 icomm=0 rank=3 thd=0 type=bare et=-9
+ts=0.003999 icomm=0 rank=2 thd=0 type=msg  et=recv icomm=0 rank=1 tag=0 sz=4
+ts=0.004004 icomm=0 rank=2 thd=0 type=bare et=163
+ts=0.004025 icomm=0 rank=2 thd=0 type=bare et=-9
+ts=0.004037 icomm=0 rank=4 thd=0 type=msg  et=recv icomm=0 rank=3 tag=0 sz=4
+ts=0.004041 icomm=0 rank=4 thd=0 type=bare et=163
+ts=0.004064 icomm=0 rank=4 thd=0 type=bare et=-9
+ts=0.004553 icomm=0 rank=6 thd=0 type=msg  et=recv icomm=0 rank=5 tag=0 sz=4
+ts=0.004557 icomm=0 rank=6 thd=0 type=bare et=163
+ts=0.004576 icomm=0 rank=6 thd=0 type=bare et=-9
+ts=0.004715 icomm=0 rank=0 thd=0 type=msg  et=recv icomm=0 rank=6 tag=0 sz=4
+ts=0.004719 icomm=0 rank=0 thd=0 type=bare et=163
+ts=0.004735 icomm=0 rank=0 thd=0 type=bare et=-9
+ts=0.005219 icomm=0 rank=1 thd=0 type=msg  et=recv icomm=0 rank=0 tag=0 sz=4
+ts=0.005224 icomm=0 rank=1 thd=0 type=bare et=163
+ts=0.005240 icomm=0 rank=1 thd=0 type=bare et=-9
+ts=0.005336 icomm=0 rank=0 thd=0 type=sdef state=24 s_et=48 e_et=49 color=white name=MPI_Comm_rank fmt=
+ts=0.005340 icomm=0 rank=0 thd=0 type=sdef state=27 s_et=54 e_et=55 color=white name=MPI_Comm_size fmt=
+ts=0.005344 icomm=0 rank=0 thd=0 type=sdef state=81 s_et=162 e_et=163 color=SeaGreen name=MPI_Sendrecv fmt=
+ts=0.005349 icomm=0 rank=0 thd=0 type=edef et=-9 color=orange name=MPE_Comm_finalize fmt=
+ts=0.005536 icomm=0 rank=0 thd=0 type=sdef state=280 s_et=560 e_et=561 color=maroon name=CLOG_Buffer_write2disk fmt=

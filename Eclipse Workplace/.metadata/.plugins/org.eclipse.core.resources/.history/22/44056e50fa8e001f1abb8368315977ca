@@ -1,0 +1,5 @@
+<br>Enter ID here!<br>
+<form name="form1" action="http://localhost:8080/DatabaseConnect/servlets/User" method="POST">
+<input type="text" name="text1">
+<input type="submit" value="Send">
+</form>

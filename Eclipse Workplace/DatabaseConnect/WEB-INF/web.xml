@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<web-app>
+
+<servlet>
+ <servlet-name>sori</servlet-name>
+ <servlet-class>databaseconnect.sori</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>SSHTest</servlet-name>
+ <servlet-class>databaseconnect.SSHTest</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>FileUploaded</servlet-name>
+ <servlet-class>databaseconnect.FileUploaded</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>FileExec</servlet-name>
+ <servlet-class>databaseconnect.FileExec</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>EnableTab</servlet-name>
+ <servlet-class>databaseconnect.EnableTab</servlet-class>
+ </servlet>
+ 
+<servlet>
+ <servlet-name>Profiler</servlet-name>
+ <servlet-class>databaseconnect.Profiler</servlet-class>
+ </servlet>
+
+
+
+
+<servlet-mapping>  
+    <servlet-name>Profiler</servlet-name>
+    <url-pattern>/servlets/Profiler</url-pattern>
+  </servlet-mapping> 
+
+<servlet-mapping>  
+    <servlet-name>EnableTab</servlet-name>
+    <url-pattern>/servlets/EnableTab</url-pattern>
+  </servlet-mapping> 
+
+<servlet-mapping>  
+    <servlet-name>FileExec</servlet-name>
+    <url-pattern>/servlets/FileExec</url-pattern>
+  </servlet-mapping> 
+
+<servlet-mapping>  
+    <servlet-name>FileUploaded</servlet-name>
+    <url-pattern>/servlets/FileUploaded</url-pattern>
+  </servlet-mapping> 
+
+<servlet-mapping>  
+    <servlet-name>SSHTest</servlet-name>
+    <url-pattern>/servlets/SSHTest</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>sori</servlet-name>
+    <url-pattern>/servlets/sori</url-pattern>
+  </servlet-mapping> 
+
+ </web-app>

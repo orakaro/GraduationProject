@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright 2010 Vu Nhat Minh - High Performance Computing Software System Laboratory,
+	Department of Computer Science, College of Information Science and Engineering, Ritsumeikan University
+	
+	Draw the Web-version of JUMPSHOT with Axiis
+	========>See color reference in http://www.cam.hi-ho.ne.jp/mendoxi/misc/colorchart.html<========
+	
+	Base on Degrafa and Axiis open source data visualizations framework
+	
+	2009 Team Axiis
+
+	Permission is hereby granted, free of charge, to any person
+	obtaining a copy of this software and associated documentation
+	files (the "Software"), to deal in the Software without
+	restriction, including without limitation the rights to use,
+	copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the
+	Software is furnished to do so, subject to the following
+	conditions:
+
+	The above copyright notice and this permission notice shall be
+	included in all copies or substantial portions of the Software.
+	
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+	OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+	NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+	HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+	WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+	FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+	OTHER DEALINGS IN THE SOFTWARE.
+
+ 
+-->
+
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:axiis="http://www.axiis.org/2009"
+				xmlns:degrafa="http://www.degrafa.com/2007"
+				xmlns:charts="org.axiis.charts.*"
+				xmlns:series="org.axiis.charts.series.*"
+				xmlns:groupings="org.axiis.charts.groupings.*"
+				xmlns:states="org.axiis.states.*"
+				xmlns:paint="org.axiis.paint.*"
+				xmlns:Examples="Examples.*"
+				xmlns:axis="org.axiis.charts.axis.*"
+				xmlns:labels="org.axiis.charts.labels.*"
+				backgroundGradientColors="[0xFFFFFF,0xDDDDDD]"
+				layout="absolute"
+				initialize="start()">
+	
+<mx:XML id="MPIInfo" source="/data/MPIInfo.xml"/>
+<mx:String id="childLabelField">categories</mx:String>
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Alert;
+		import mx.controls.sliderClasses.Slider;
+		import mx.events.SliderEvent;
+		import mx.utils.object_proxy;
+		
+		import org.axiis.data.DataSet; 
+		private var ds:DataSet = new DataSet();
+		private function start():void	{
+			ds.processXmlString(MPIInfo);
+			//ds.aggregateData(ds.data.object.Cluster, "Rank", ["Finallize"]);
+			//scale.maxValue = ds.data.object.aggregates['Rank_Finallize_max']; 
+			ClusterLayout.dataProvider = ds.data.object.Cluster;
+			showZoom.setThumbValueAt(0,0);			
+			showZoom.setThumbValueAt(1,100);
+			dataCanvas.invalidateDisplayList();
+		}
+		//Send block color
+		public function SendBlockColorChange(val:Object):Number	{
+			return 0x3CB371;//MediumSeaGreen
+		}
+		//Receiv block color
+		public function RecvBlockColorChange(val:Object):Number	{
+			return 0xC71585;//MediumVioletRed 	
+		}
+		//Handle when push the MPI_comm_rank button
+		private function MPI_comm_rankButtonHandler():void {
+			showMPI_comm_rank.selected=!(showMPI_comm_rank.selected);
+			dataCanvas.invalidateDisplayList();
+		}
+		//Handle when push the Send button
+		private function SendButtonHandler():void {
+			showSend.selected=!(showSend.selected);
+			dataCanvas.invalidateDisplayList();
+		}
+		//Handle when push the Recv button
+		private function RecvButtonHandler():void {
+			showRecv.selected=!(showRecv.selected);
+			dataCanvas.invalidateDisplayList();
+		}
+		//Handle when push the MPI_Finallize button
+		private function MPI_FinallizeButtonHandler():void {
+			showMPI_Finallize.selected=!(showMPI_Finallize.selected);
+			dataCanvas.invalidateDisplayList();
+		}
+		//Handle when push the Message button
+		private function MessageButtonHandler():void {
+			showMessage.selected=!(showMessage.selected);
+			dataCanvas.invalidateDisplayList();
+		}
+	]]>
+</mx:Script>
+<Examples:ExampleBackground width="100%" height="100%"/>
+<axiis:LinearScale id="scale"
+				   maxLayout="{dataCanvas.width}"
+				   minLayout="0"
+				   minValue="{ClusterLayout.currentDatum.MaxTime*(showZoom.values[0])/100}"
+				   maxValue="{ClusterLayout.currentDatum.MaxTime*(showZoom.values[1])/100}"/>
+<axiis:DataCanvas id="dataCanvas"
+				  verticalCenter="0" 
+				  horizontalCenter="0"
+				  width="1000" 
+				  height="500"
+				  showDataTips="true"
+				  >
+	<axiis:backgroundGeometries>
+		<axiis:HAxis
+			id="HAxis"
+			horizontalScale="{scale}"
+			width="{dataCanvas.width}"
+			height="{dataCanvas.height}"
+			tickGap="{Number(showTickGap.text)}"
+			majorTickSpacing="{(dataCanvas.width/scale.maxValue)*Number(showMajorTickSpacing.text)}"/>
+	</axiis:backgroundGeometries>
+	<axiis:layouts>	
+		<axiis:VBoxLayout id="ClusterLayout"
+						  x="0"
+						  y="0"
+						  width="{dataCanvas.width}"
+						  height="{dataCanvas.height}"
+						  name="Main"
+						  scaleFill="true"
+						  dataField="value">
+			<axiis:drawingGeometries>
+				<degrafa:HorizontalLine id="TimeLine"
+										x="{ClusterLayout.currentReference.x}"
+										y="{ClusterLayout.currentReference.height}"
+										x1="{ClusterLayout.currentReference.width}"
+										stroke="{redStroke}"/>
+				<degrafa:VerticalLine id="BaseLine"
+									  x="{ClusterLayout.currentReference.x}"
+									  y="{ClusterLayout.currentReference.y}"
+									  y1="{ClusterLayout.currentReference.height}"
+									  stroke="{blackStroke}"/>
+				<degrafa:RasterText 
+					text="Time line (µs)"
+					textColor="#FF0000"
+					fontFamily="Arial"
+					align="center"
+					x="{ClusterLayout.currentReference.x-100}"
+					y="{ClusterLayout.height-10}"
+					width="100"/>	
+			</axiis:drawingGeometries>
+			<axiis:layouts>
+				
+<!--****************************************Draw Ranks stuff***********************************************-->
+				<axiis:VBoxLayout id="RankLayout"
+								  x="0"
+								  y="0"
+								  dataProvider="{ClusterLayout.currentDatum.Rank}"
+								  width="{dataCanvas.width}"
+								  height="{dataCanvas.height}"
+								  name="RankLayout"
+								  scaleFill="true"
+								  dataField="value">
+<!--Reference-->
+					<axiis:referenceRepeater>
+						<axiis:GeometryRepeater>
+							<axiis:geometry>
+								<degrafa:HorizontalLine	id="referenceRankLine"
+														x="0"
+														y="{RankLayout.height/(RankLayout.itemCount+1)}"
+														x1="{RankLayout.width}"/>
+							</axiis:geometry>
+							<axiis:modifiers>
+								<axiis:PropertyModifier property="y" 
+														modifier="{RankLayout.height/(RankLayout.itemCount+1)}"/>
+							</axiis:modifiers>
+						</axiis:GeometryRepeater>
+					</axiis:referenceRepeater>
+<!--Draw-->
+					<axiis:drawingGeometries>				
+						<degrafa:HorizontalLine	id="RankLine"
+												x="{RankLayout.currentReference.x}"
+												y="{RankLayout.currentReference.y}"
+												x1="{RankLayout.width}"
+												stroke="{blackStroke}"/>
+						<degrafa:RasterText 
+							text="{RankLayout.currentValue}"
+							fontFamily="Arial"
+							align="center"
+							x="{RankLayout.currentReference.x-100}"
+							y="{RankLayout.currentReference.y-10}"
+							width="100"/>					
+					</axiis:drawingGeometries>
+					<axiis:layouts>
+<!-- 2nd layouts HERE!-->
+<!--=====MPI_comm_rank=====================================================================================-->
+						<axiis:VBoxLayout id="MPI_comm_rankLayout"
+										  x="0"
+										  y="0"
+										  width="{RankLayout.currentReference.width}"
+										  height="{RankLayout.currentReference.height}"
+										  dataProvider="{RankLayout.currentDatum.MPI_comm_rank}"
+										  visible="{showMPI_comm_rank.selected}">
+							<axiis:drawingGeometries>
+								<degrafa:VerticalLine 	x="0"
+														y="0"
+														y1="0"/>
+							</axiis:drawingGeometries>
+							<axiis:layouts>
+								<axiis:VBoxLayout id="MPI_comm_rankLayoutmain"
+												  x="0"
+												  y="0"
+												  width="{MPI_comm_rankLayout.currentReference.width}"
+												  height="{MPI_comm_rankLayout.currentReference.height}"
+												  dataProvider="{MPI_comm_rankLayout.currentDatum}"
+												  scaleFill="true"
+												  dataField="tsStart"
+												  labelField="tsEnd">
+									<axiis:drawingGeometries>
+										<degrafa:RegularRectangle id="MPI_comm_rank"
+																  x="{scale.valueToLayout(MPI_comm_rankLayout.currentDatum.tsStart)}"
+																  y="{MPI_comm_rankLayout.currentReference.y-20}"
+																  width="{scale.valueToLayout(MPI_comm_rankLayout.currentDatum.tsEnd)-scale.valueToLayout(MPI_comm_rankLayout.currentDatum.tsStart)}"
+																  height="40"
+																  stroke="{blackStroke}"
+																  fill="{fill1}"/>
+									</axiis:drawingGeometries>
+								</axiis:VBoxLayout>
+							</axiis:layouts>
+						</axiis:VBoxLayout>					
+<!--=====Send=====================================================================================-->
+						<axiis:VBoxLayout id="MultipleSendLayout"
+										  x="0"
+										  y="0"
+										  width="{RankLayout.currentReference.width}"
+										  height="{RankLayout.currentReference.height}"
+										  dataProvider="{RankLayout.currentDatum.Send}"
+										  name="MultipleSendLayout"
+										  scaleFill="true"
+										  visible="{showSend.selected}">
+							<axiis:drawingGeometries>
+								<degrafa:HorizontalLine x="0"
+														y="0"
+														x1="0.1"/>
+							</axiis:drawingGeometries>
+							<!--Send 3rd layouts HERE!-->
+							<axiis:layouts>			
+								<axiis:VBoxLayout id="SendLayoutMain"
+												  x="0"
+												  y="0"
+												  width="{MultipleSendLayout.currentReference.width}"
+												  height="{MultipleSendLayout.currentReference.height}"
+												  dataProvider="{MultipleSendLayout.currentDatum}"
+												  name="SendLayoutMain"
+												  scaleFill="true"
+												  dataField="tsEnd"
+												  labelField="tsStart">
+									<axiis:drawingGeometries>
+										<degrafa:RegularRectangle id="Send"
+																  x="{scale.valueToLayout(MultipleSendLayout.currentDatum.tsStart)}"
+																  y="{MultipleSendLayout.currentReference.y-20}"
+																  width="{scale.valueToLayout(MultipleSendLayout.currentDatum.tsEnd)-scale.valueToLayout(MultipleSendLayout.currentDatum.tsStart)}"
+																  height="40"
+																  stroke="{blackStroke}"
+																  fill="{fill2}"/>
+									</axiis:drawingGeometries>
+									<axiis:states>
+										<axiis:State enterStateEvent="mouseOver"
+													 exitStateEvent="mouseOut"
+													 properties="{['color']}"
+													 values="{[SendBlockColorChange]}"
+													 targets="{[SendBlock]}"
+													 propagateToDescendents="true"/>
+									</axiis:states>
+								</axiis:VBoxLayout>	
+							</axiis:layouts>
+							<!--End Send 3rd layouts-->
+						</axiis:VBoxLayout>
+						
+<!--=====Recv=====================================================================================-->
+						<axiis:VBoxLayout id="MultipleRecvLayout"
+										  x="0"
+										  y="0"
+										  width="{RankLayout.currentReference.width}"
+										  height="{RankLayout.currentReference.height}"
+										  dataProvider="{RankLayout.currentDatum.Recv}"
+										  name="MultipleRecvLayout"
+										  scaleFill="true"
+										  visible="{showRecv.selected}">
+							<axiis:drawingGeometries>
+								<degrafa:HorizontalLine x="0"
+														y="0"
+														x1="0.1"/>
+							</axiis:drawingGeometries>
+							<!--Recv 3rd layouts HERE!-->
+							<axiis:layouts>			
+								<axiis:VBoxLayout id="RecvLayoutMain"
+												  x="0"
+												  y="0"
+												  width="{MultipleRecvLayout.currentReference.width}"
+												  height="{MultipleRecvLayout.currentReference.height}"
+												  dataProvider="{MultipleRecvLayout.currentDatum}"
+												  dataField="tsEnd"
+												  labelField="tsStart"
+												  scaleFill="true">
+									<axiis:drawingGeometries>
+										<degrafa:RegularRectangle id="Recv"
+																  x="{scale.valueToLayout(MultipleRecvLayout.currentDatum.tsStart)}"
+																  y="{MultipleRecvLayout.currentReference.y-20}"
+																  width="{scale.valueToLayout(MultipleRecvLayout.currentDatum.tsEnd)-scale.valueToLayout(MultipleRecvLayout.currentDatum.tsStart)}"
+																  height="40"
+																  stroke="{blackStroke}"
+																  fill="{fill3}"/>
+									</axiis:drawingGeometries>
+									<axiis:states>
+										<axiis:State enterStateEvent="mouseOver"
+													 exitStateEvent="mouseOut"
+													 properties="{['color']}"
+													 values="{[RecvBlockColorChange]}"
+													 targets="{[RecvBlock]}"/>
+									</axiis:states>
+								</axiis:VBoxLayout>	
+							</axiis:layouts>
+							<!--End Recv 3rd layouts-->
+						</axiis:VBoxLayout>
+<!--=====MPI_Finallize=====================================================================================-->
+						<axiis:VBoxLayout id="FinallizeLayout"
+										  x="0"
+										  y="0"
+										  width="{RankLayout.currentReference.width}"
+										  height="{RankLayout.currentReference.height}"
+										  dataProvider="{RankLayout.currentDatum.MPI_Finallize}"
+										  name="FinallizeLayout"
+										  scaleFill="true"
+										  dataField="ts"
+										  labelField="label"
+										  visible="{showMPI_Finallize.selected}">
+							<axiis:drawingGeometries>
+								<degrafa:VerticalLine id="MPI_Finallize"
+													  x="{scale.valueToLayout(FinallizeLayout.currentValue)}"
+													  y="{FinallizeLayout.currentReference.y-20}"
+													  y1="{FinallizeLayout.currentReference.y+20}"
+													  stroke="{redStroke}"/>
+							</axiis:drawingGeometries>
+						</axiis:VBoxLayout>
+						
+						
+					</axiis:layouts>
+					<!--End 2nd layouts-->
+				</axiis:VBoxLayout>
+			</axiis:layouts>
+		</axiis:VBoxLayout>
+			
+<!--****************************************Draw Messages stuff***********************************************-->
+		<axiis:VBoxLayout id="MessageLayout"
+						  x="0"
+						  y="0"
+						  dataProvider="{ClusterLayout.currentDatum.Message}"
+						  width="{dataCanvas.width}"
+						  height="{dataCanvas.height}"
+						  scaleFill="true"
+						  visible="{showMessage.selected}">
+			<axiis:drawingGeometries>
+				<degrafa:VerticalLine 	x="0"
+										y="0"
+										y1="0"/>
+			</axiis:drawingGeometries>
+			<axiis:layouts>
+
+				<axiis:VBoxLayout id="tsEnd"
+								  x="0"
+								  y="0"
+								  dataProvider="{MessageLayout.currentDatum}"
+								  width="{MessageLayout.currentReference.width}"
+								  height="{MessageLayout.currentReference.height}"
+								  name="tsEnd"
+								  scaleFill="true"
+								  dataField="tsEnd"
+								  labelField="tsStart">
+					<axiis:drawingGeometries>
+						<degrafa:Line id="MessageItself"
+									  x="{scale.valueToLayout(MessageLayout.currentDatum.tsStart)}"
+									  x1="{scale.valueToLayout(MessageLayout.currentDatum.tsEnd)}"
+									  y="{(MessageLayout.currentDatum.senderRank  +1 -MessageLayout.currentIndex*(RankLayout.itemCount+1)/MessageLayout.itemCount)* (MessageLayout.height/(RankLayout.itemCount+1))}"
+									  y1="{(MessageLayout.currentDatum.receiverRank  +1 -MessageLayout.currentIndex*(RankLayout.itemCount+1)/MessageLayout.itemCount)* (MessageLayout.height/(RankLayout.itemCount+1))}"
+									  stroke="{blueStroke}"/>
+					</axiis:drawingGeometries>
+				</axiis:VBoxLayout>
+				
+			</axiis:layouts>
+		</axiis:VBoxLayout>
+<!--End Draw Message Stuff-->			
+		
+	</axiis:layouts>
+</axiis:DataCanvas>
+
+	
+<!--Strokes and fills*************************************************************-->
+<mx:Array id="strokes">
+	<degrafa:SolidStroke id="blackStroke" color="0"/>
+	<degrafa:SolidStroke id="redStroke" color="red"/>
+	<degrafa:SolidStroke id="blueStroke" color="blue"/>
+</mx:Array>
+<mx:Array id="fills">
+	<degrafa:LinearGradientFill id="fill1">
+		<degrafa:GradientStop id="stop1" color="Blue"/>
+	</degrafa:LinearGradientFill>
+	<degrafa:LinearGradientFill id="fill2">
+		<degrafa:GradientStop id="SendBlock" color="LimeGreen"/>
+	</degrafa:LinearGradientFill>
+	<degrafa:LinearGradientFill id="fill3">
+		<degrafa:GradientStop id="RecvBlock" color="Firebrick"/>
+	</degrafa:LinearGradientFill>
+</mx:Array>
+	
+<!--Create the Slider*************************************************************-->
+<mx:VBox id="ZoomSlider"
+		 x="132"
+		 y="{ClusterLayout.currentReference.height+220}">
+	<mx:Label text="Zoom" textAlign="right" verticalCenter="0"/>
+	<mx:HSlider	id="showZoom"
+				thumbCount="2"
+				maximum="100"
+				snapInterval="5"
+				liveDragging="true"
+				showTrackHighlight="true"
+				change="{dataCanvas.invalidateDisplayList();}"/>
+</mx:VBox>
+<!--TextArea**********************************************************************-->
+<mx:Label text="Major Tick Spacing"  x="340" y="{ClusterLayout.currentReference.height+220}"/>
+<mx:VBox id="majorTickSpacing"
+		 x="450"
+		 y="{ClusterLayout.currentReference.height+220}">
+	<mx:TextArea id="showMajorTickSpacing" 
+				 maxWidth="60" 
+				 maxHeight="20" 
+				 text="100"
+				 editable="true"
+				 change="{dataCanvas.invalidateDisplayList();}"/>
+	
+</mx:VBox>
+<!--TextArea**********************************************************************-->
+<mx:Label text="Tick gaps"  x="380" y="{ClusterLayout.currentReference.height+250}"/>
+<mx:VBox id="TickGap"
+		 x="450"
+		 y="{ClusterLayout.currentReference.height+250}">
+	<mx:TextArea id="showTickGap" 
+				 maxWidth="60" 
+				 maxHeight="20" 
+				 text="5"
+				 editable="true"
+				 change="{dataCanvas.invalidateDisplayList();}"/>	
+</mx:VBox>
+<!--Check boxes*******************************************************************-->	
+<mx:VBox id="CheckMPI_comm_rank"
+		 x="540"
+		 y="{ClusterLayout.currentReference.height+220}">
+	<mx:CheckBox id="showMPI_comm_rank" 
+				 label="MPI_comm_rank" 
+				 selected="true" 
+				 change="{dataCanvas.invalidateDisplayList();}"/>
+	<mx:Button  id="buttonMPI_comm_rank" 
+				fillAlphas="[0.5, 0.5]"
+				fillColors="[Blue, Blue]"
+				click="{MPI_comm_rankButtonHandler();}">
+	</mx:Button>
+		
+</mx:VBox>
+<mx:VBox id="CheckSend"
+		 x="690"
+		 y="{ClusterLayout.currentReference.height+220}">
+	<mx:CheckBox id="showSend" 
+				 label="Send" 
+				 selected="true" 
+				 change="{dataCanvas.invalidateDisplayList();}"/>
+	<mx:Button   fillAlphas="[0.7, 0.7]"
+				 fillColors="[Green, Green]"
+				 click="{SendButtonHandler();}">
+	</mx:Button>
+</mx:VBox>
+<mx:VBox id="CheckRecv"
+		 x="780"
+		 y="{ClusterLayout.currentReference.height+220}">
+	<mx:CheckBox id="showRecv" 
+				 label="Recv" 
+				 selected="true" 
+				 change="{dataCanvas.invalidateDisplayList();}"/>
+	<mx:Button   fillAlphas="[1000.0, 1000.0]"
+				 fillColors="[Red, Red]"
+				 click="{RecvButtonHandler();}">
+	</mx:Button>
+</mx:VBox>	
+<mx:VBox id="CheckMPI_Finallize"
+		 x="870"
+		 y="{ClusterLayout.currentReference.height+220}">
+	<mx:CheckBox id="showMPI_Finallize" 
+				 label="MPI_Finallize" 
+				 selected="true" 
+				 change="{dataCanvas.invalidateDisplayList();}"/>
+	<mx:Button   fillAlphas="[0.8, 0.8]"
+				 fillColors="[red, red]"
+				 click="{MPI_FinallizeButtonHandler();}">
+	</mx:Button>
+</mx:VBox>
+<mx:VBox id="CheckMessage"
+		 x="1000"
+		 y="{ClusterLayout.currentReference.height+220}">
+	<mx:CheckBox id="showMessage" 
+				 label="Message" 
+				 selected="true" 
+				 change="{dataCanvas.invalidateDisplayList();}"/>
+	<mx:Button   fillAlphas="[0.8, 0.8]"
+				 fillColors="[Blue, Blue]"
+				 click="{MessageButtonHandler();}">
+	</mx:Button>
+</mx:VBox>	
+
+</mx:Application>

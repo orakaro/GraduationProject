@@ -1,0 +1,88 @@
+<Cluster>
+	<MaxTime>2131</MaxTime>
+	<Rank value="Rank 0">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>220</tsStart>
+			<tsEnd>224</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+			 <ts>293</ts>
+		</MPI_Finallize>
+		<Send label="Send">
+			<tsStart>246</tsStart>
+			<tsEnd categories="DTVD" >267</tsEnd>
+		</Send>
+		<Send label="Send">
+			<tsStart>271</tsStart>
+			<tsEnd categories="DTVD" >285</tsEnd>
+		</Send>
+
+	</Rank>
+
+	<Rank value="Rank 1">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>171</tsStart>
+			<tsEnd>175</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>535</ts>
+		</MPI_Finallize>
+		<Recv label="Recv">
+			<tsStart>183</tsStart>
+			<tsEnd>515</tsEnd>
+		</Recv>
+	</Rank>
+
+	<Rank value="Rank 2">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>1787</tsStart>
+			<tsEnd>1790</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>2131</ts>
+		</MPI_Finallize>
+		<Recv label="Recv">
+			<tsStart>1797</tsStart>
+			<tsEnd>1819</tsEnd>
+		</Recv>
+		<Recv label="Recv">
+			<tsStart>1823</tsStart>
+			<tsEnd>1831</tsEnd>
+		</Recv>
+	</Rank>
+
+	<Rank value="Rank 3">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>1253</tsStart>
+			<tsEnd>1257</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>1570</ts>
+		</MPI_Finallize>
+		<Send label="Send">
+			<tsStart>1264</tsStart>
+			<tsEnd categories="DTVD" >1284</tsEnd>
+		</Send>
+	</Rank>
+	
+	<Message senderRank="0" receiverRank="1">
+		<tsStart>253</tsStart>
+		<tsEnd>511</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+	<Message senderRank="0" receiverRank="2">
+		<tsStart>275</tsStart>
+		<tsEnd>1815</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+	<Message senderRank="3" receiverRank="2">
+		<tsStart>1270</tsStart>
+		<tsEnd>1827</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+
+	
+</Cluster>

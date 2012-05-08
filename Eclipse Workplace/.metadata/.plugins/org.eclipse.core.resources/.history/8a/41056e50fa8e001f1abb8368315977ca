@@ -1,0 +1,87 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+
+public class sori extends HttpServlet {
+
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	String w = req.getParameter("user");
+	String v = req.getParameter("password");
+	writer.println("<html>");
+	writer.println("<body>");
+	
+	try {
+		Class.forName("org.gjt.mm.mysql.Driver");
+		String url = "jdbc:mysql://localhost/lab3?characterEncoding=utf8";
+		Connection con = DriverManager.getConnection(url,"cs0000ie","w1158538");
+		
+		Statement stmt = con.createStatement();
+		//String checkSql = "SELECT COUNT(*) FROM USERDB WHERE NAME = '"+w+"' AND PASSWORD = '"+v+"' ORDER BY MEMBERID";
+		String sql = "SELECT * FROM USERDB WHERE NAME = '"+w+"' AND PASSWORD = '"+v+"' ORDER BY MEMBERID";
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		
+		
+		rs.last();
+		int numberOfRows = rs.getRow();
+		if (numberOfRows == 0) {
+			writer.println("<form name=\"form3\" >");
+			writer.println("<h3>Wrong password or user name! Click Back button to go back and try again!</h3> ");
+			writer.println("<input type=\"button\" value =\"Back\"  onClick = \"history.go(-1)\" >");
+			writer.println("</form>");	
+		}
+		rs.beforeFirst();
+
+		
+
+		while (rs.next()){
+		String type = rs.getString("TYPE");
+		String memberid = rs.getString("MEMBERID");
+		if (type.equals("librarian")) {
+			writer.println("<h3>You logged as a librarian, You can go to the main page or re-loggin </h3>");
+			writer.println("<form name=\"form1\" action=\"http://localhost:8080/DatabaseConnect/servlets/TestJDBC\" method=\"POST\" >");
+			writer.println("<input type=\"submit\" value=\"Main page\" >");
+			writer.println("<input type=\"button\" value =\"Re-loggin\"  onClick = \"history.go(-1)\" >");
+			writer.println("</form>");	
+		}
+		else if (type.equals("student")) {
+			writer.println("<h3>You logged as a student, You can go to your page or re-loggin</h3>");
+			writer.println("<form name=\"form2\" action=\"http://localhost:8080/DatabaseConnect/servlets/User\" method=\"POST\" >");
+			writer.println("<input type=\"hidden\" name = \"random\" value = \""+memberid+"\" >");
+			writer.println("<input type=\"submit\" value=\"Your page\" >");
+			writer.println("<input type=\"button\" value =\"Re-loggin\"  onClick = \"history.go(-1)\" >");
+			writer.println("</form>");	
+		}
+		}
+
+	
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+
+	
+	writer.println("</body>");
+	writer.println("</html>");
+}
+}

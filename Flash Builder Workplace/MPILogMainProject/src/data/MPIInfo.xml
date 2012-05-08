@@ -1,0 +1,97 @@
+<Cluster>
+<MaxTime>1450.0</MaxTime>
+<Rank value="Rank 0">
+<MPI_comm_rank label="MPI_comm_rank">
+<tsStart>120.0</tsStart>
+<tsEnd>130.0</tsEnd>
+</MPI_comm_rank>
+<MPI_comm_size label="MPI_comm_size">
+<tsStart>0.0</tsStart>
+<tsEnd>0.0</tsEnd>
+</MPI_comm_size>
+<MPI_Finallize label="MPI_Finallize">
+<ts>660.0</ts>
+</MPI_Finallize>
+<Send label="Send">
+<tsStart>580.0</tsStart>
+<tsEnd>610.0</tsEnd>
+</Send>
+<Send label="Send">
+<tsStart>610.0</tsStart>
+<tsEnd>650.0</tsEnd>
+</Send>
+</Rank>
+<Rank value="Rank 1">
+<MPI_comm_rank label="MPI_comm_rank">
+<tsStart>90.0</tsStart>
+<tsEnd>100.0</tsEnd>
+</MPI_comm_rank>
+<MPI_comm_size label="MPI_comm_size">
+<tsStart>0.0</tsStart>
+<tsEnd>0.0</tsEnd>
+</MPI_comm_size>
+<MPI_Finallize label="MPI_Finallize">
+<ts>850.0</ts>
+</MPI_Finallize>
+<Recv label="Recv">
+<tsStart>100.0</tsStart>
+<tsEnd>640.0</tsEnd>
+</Recv>
+</Rank>
+<Rank value="Rank 2">
+<MPI_comm_rank label="MPI_comm_rank">
+<tsStart>990.0</tsStart>
+<tsEnd>990.0</tsEnd>
+</MPI_comm_rank>
+<MPI_comm_size label="MPI_comm_size">
+<tsStart>0.0</tsStart>
+<tsEnd>0.0</tsEnd>
+</MPI_comm_size>
+<MPI_Finallize label="MPI_Finallize">
+<ts>1450.0</ts>
+</MPI_Finallize>
+<Recv label="Recv">
+<tsStart>1000.0</tsStart>
+<tsEnd>1020.0000000000001</tsEnd>
+</Recv>
+<Recv label="Recv">
+<tsStart>1020.0000000000001</tsStart>
+<tsEnd>1050.0</tsEnd>
+</Recv>
+</Rank>
+<Rank value="Rank 3">
+<MPI_comm_rank label="MPI_comm_rank">
+<tsStart>990.0</tsStart>
+<tsEnd>1000.0</tsEnd>
+</MPI_comm_rank>
+<MPI_comm_size label="MPI_comm_size">
+<tsStart>0.0</tsStart>
+<tsEnd>0.0</tsEnd>
+</MPI_comm_size>
+<MPI_Finallize label="MPI_Finallize">
+<ts>1300.0</ts>
+</MPI_Finallize>
+<Send label="Send">
+<tsStart>1000.0</tsStart>
+<tsEnd>1050.0</tsEnd>
+</Send>
+</Rank>
+<Message senderRank="0" receiverRank="1">
+<tsStart>590.0</tsStart>
+<tsEnd>630.0</tsEnd>
+<tag>0</tag>
+<sz>4</sz>
+</Message>
+<Message senderRank="0" receiverRank="2">
+<tsStart>610.0</tsStart>
+<tsEnd>1010.0</tsEnd>
+<tag>0</tag>
+<sz>4</sz>
+</Message>
+<Message senderRank="3" receiverRank="2">
+<tsStart>1010.0</tsStart>
+<tsEnd>1050.0</tsEnd>
+<tag>0</tag>
+<sz>4</sz>
+</Message>
+</Cluster>

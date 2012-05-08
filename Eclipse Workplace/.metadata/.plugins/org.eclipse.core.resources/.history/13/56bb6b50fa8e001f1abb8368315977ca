@@ -1,0 +1,81 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class TestUpdate extends HttpServlet {
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	String w = req.getParameter("text_update");
+	String author,id,title,publisher,price,isbn;
+	
+	writer.println("<html>");
+	writer.println("<body>");
+	writer.println("Update");
+	
+	writer.println("<form name=\"form1\" action=\"http://localhost:8080/DatabaseConnect/servlets/UpdateExe\" method=\"POST\" >");
+	writer.println("<table border = 1>");
+	writer.println("<tr><td>ID</td><td>AUTHOR</td><td>TITLE</td><td>PUBLISHER</td><td>PRICE</td><td>ISBN</td></tr>");
+	try {
+		Class.forName("org.gjt.mm.mysql.Driver");
+		String url = "jdbc:mysql://localhost/lab3?characterEncoding=utf8";
+		Connection con = DriverManager.getConnection(url,"cs0000ie","w1158538");
+		
+		Statement stmt = con.createStatement();
+		String sql = "SELECT * FROM BOOKLIST WHERE ID = "+w+";";
+		
+		//writer.println("<h4>"+sql+"</h4>");
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()){
+		author = rs.getString("AUTHOR");
+		id = rs.getString("ID");
+		title = rs.getString("TITLE");
+		publisher = rs.getString("PUBLISHER");
+		price = rs.getString("PRICE");
+		isbn = rs.getString("ISBN");
+		writer.println("<tr>");
+		writer.println("<td><input type=\"hidden\" name=\"D1\" value=\""+id+"\">"+id+"</td>");
+		writer.println("<td><input type=\"text\" name=\"D2\" value=\""+author+"\"></td>");
+		writer.println("<td><input type=\"text\" name=\"D3\" value=\""+title+"\"></td>");
+		writer.println("<td><input type=\"text\" name=\"D4\" value=\""+publisher+"\"></td>");
+		writer.println("<td><input type=\"text\" name=\"D5\" value=\""+price+"\"></td>");
+		writer.println("<td><input type=\"text\" name=\"D6\" value=\""+isbn+"\"></td>");
+		writer.println("</tr>");
+		
+		}
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	writer.println("</table>");
+	writer.println("<input type=\"submit\" value=\"Done\">");
+	writer.println("</form>");
+
+	
+	writer.println("</body>");
+	writer.println("</html>");
+}
+}
+
+
+
+
+
+
+	

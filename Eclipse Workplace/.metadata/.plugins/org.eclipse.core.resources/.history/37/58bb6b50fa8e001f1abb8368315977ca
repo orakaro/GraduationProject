@@ -1,0 +1,106 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+
+public class User extends HttpServlet {
+
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	//String w = req.getParameter("text1");
+	String w = req.getParameter("random");
+	writer.println("<html>");
+	writer.println("<body>");
+	int x=1;
+	//Form start
+	writer.println("<form name=\"form1\" >");
+	writer.println("<h1>BORROWED BOOKLIST </h1>");
+	writer.println("<table border = 1>");
+	writer.println("<tr><td></td><td>BOOKID</td><td>TITLE</td></tr>");
+	
+	
+	try {
+		Class.forName("org.gjt.mm.mysql.Driver");
+		String url = "jdbc:mysql://localhost/lab3?characterEncoding=utf8";
+		Connection con = DriverManager.getConnection(url,"cs0000ie","w1158538");
+		
+		Statement stmt = con.createStatement();
+		String sql = "SELECT * FROM BORROWDB WHERE MEMBERID = "+w+" ORDER BY BOOKID";
+		//writer.println("<br>"+sql+"");
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()){
+		String bookid = rs.getString("BOOKID");
+		String title = rs.getString("TITLE");
+		writer.println("<tr><td><INPUT TYPE=RADIO NAME=\"UD\" VALUE="+bookid+" onClick=\"takeValue();\"></td><td>"+bookid+"</td><td>"+title+"</td></tr>");
+		x++;
+		}
+		
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	writer.println("</table>");
+	writer.println("</form>");
+	writer.println("<br>");
+	//Form end
+	
+	
+	//返却 Button
+	writer.println("<form name=\"form2\" action=\"http://localhost:8080/DatabaseConnect/servlets/Henkyaku\" method=\"GET\" >");
+	writer.println("<input type=\"hidden\" name = \"get_userid\" value =\""+w+"\">");
+	writer.println("<input type=\"hidden\" name = \"text_del\" >");
+	writer.println("<input type=\"submit\" value=\"返却\" >");
+	writer.println("</form>");
+
+	//Search Book
+	writer.println("<h4>貸出しの予約はこちらです！</h4>");
+	writer.println("<form name=\"form3\" action=\"http://localhost:8080/DatabaseConnect/servlets/Kashidasu\" method=\"POST\" >");
+	writer.println("<input type=\"hidden\" name = \"get_userid\" value =\""+w+"\">");
+	writer.println("<input type=\"text\" name = \"text2\" >");
+	writer.println("<input type=\"submit\" value=\"貸し出し予約\" >");
+	writer.println("</form>");
+	
+	/*貸し出す Button
+	writer.println("Enter title of book which u want to borrow into the textbox below!");
+	writer.println("<form name=\"form3\" action=\"http://localhost:8080/DatabaseConnect/servlets/Kashidasu\" method=\"GET\" >");
+	writer.println("<input type=\"hidden\" name = \"get_userid\" value =\""+w+"\">");
+	writer.println("<input type=\"text\" name = \"text_add\" >");
+	writer.println("<input type=\"submit\" value=\"貸し出す\" >");
+	writer.println("</form>");
+*/
+	//Java Script
+	writer.println("<script languge=\"javascript\">");
+	
+	writer.println("function takeValue(){");
+	writer.println("var i;");
+	writer.println("for(i=1;i<"+x+";i++){");
+	writer.println("if (document.form1.UD[i-1].checked) {document.form2.text_del.value=document.form1.UD[i-1].value;}");
+	writer.println("}");
+	writer.println("}");
+	
+	writer.println("</script>");
+	
+	
+	writer.println("</body>");
+	writer.println("</html>");
+}
+}

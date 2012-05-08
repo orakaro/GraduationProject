@@ -1,0 +1,6 @@
+<form name="form1" action="http://localhost:8080/DatabaseConnect/servlets/sori" method="POST">
+ƒm[ƒh” 
+<input type="text" name="nodeNum">
+<br>
+<input type="submit" value="ŽÀs">
+</form>

@@ -1,0 +1,36 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class SSHTest extends HttpServlet {
+
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	String w = req.getParameter("user");
+	String v = req.getParameter("password");
+	writer.println("<html>");
+	writer.println("<body>");
+	
+
+
+	
+	writer.println("</body>");
+	writer.println("</html>");
+}
+}

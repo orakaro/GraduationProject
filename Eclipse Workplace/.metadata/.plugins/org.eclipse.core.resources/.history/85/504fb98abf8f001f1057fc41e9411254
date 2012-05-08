@@ -1,0 +1,3 @@
+<form name="form1" action="http://localhost:8080/DatabaseConnect/servlets/sori" method="POST">
+<input type="submit" value="Hello ŽÀs">
+</form>

@@ -1,0 +1,17 @@
+<html>
+<head>
+</head>
+<body>
+		<form name="form1" action="http://localhost:8080/DatabaseConnect/servlets/sori" method="POST">
+		ノード数 
+			<input type="text" name="nodeNum">
+			<br>
+			<input type="submit" value="helloworld.cを実行してみる">
+		</form>
+<p>自分のhelloworldを実行したい？</p>
+		<form action="Commonsfileuploadservlet" enctype="multipart/form-data" method="POST">
+			<input type="file" name="file1"><br>
+			<input type="Submit" value="Upload File"><br>
+		</form>
+</body>
+</html>

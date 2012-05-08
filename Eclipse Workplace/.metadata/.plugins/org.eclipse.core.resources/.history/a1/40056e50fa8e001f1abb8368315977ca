@@ -1,0 +1,73 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+
+public class ViewComments extends HttpServlet {
+
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	String w = req.getParameter("text_comments");
+	String u = req.getParameter("get_userid");
+	writer.println("<html>");
+	writer.println("<body>");
+	writer.println("<form name=\"form1\" >");
+	try {
+		Class.forName("org.gjt.mm.mysql.Driver");
+		String url = "jdbc:mysql://localhost/lab3?characterEncoding=utf8";
+		Connection con = DriverManager.getConnection(url,"cs0000ie","w1158538");
+		
+		Statement stmt = con.createStatement();
+		String sql = "SELECT * FROM USERDB,COMMENTSDB WHERE BOOKID = "+w+" AND COMMENTSDB.MEMBERID = USERDB.MEMBERID ORDER BY CMTID";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()){
+		String name = rs.getString("NAME");
+		String content = rs.getString("CONTENT");
+		
+		writer.println("<h4> "+name+":  "+content+ "</h4>");
+		}
+		
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	writer.println("</form>");
+	writer.println("<br>");
+	//Form end
+
+	
+	writer.println("<FORM name=\"form2\" action=\"http://localhost:8080/DatabaseConnect/servlets/CommentsAdd\" method=\"POST\">");
+	writer.println("<input type=\"hidden\" name = \"get_userid\" value = \""+u+"\">");
+	writer.println("<input type=\"hidden\" name = \"get_bookid\" value = \""+w+"\">");
+	writer.println("自分がコメントを書く:<BR>");
+	writer.println("<TEXTAREA NAME=\"comments\" COLS=40 ROWS=6>");
+	writer.println("コメントはここに書く");
+	writer.println("</TEXTAREA>");
+	writer.println("<br>");
+	writer.println("<INPUT TYPE=SUBMIT VALUE=\"コメント\">");
+	writer.println("</FORM>");
+
+	
+	writer.println("</body>");
+	writer.println("</html>");
+	
+}
+}

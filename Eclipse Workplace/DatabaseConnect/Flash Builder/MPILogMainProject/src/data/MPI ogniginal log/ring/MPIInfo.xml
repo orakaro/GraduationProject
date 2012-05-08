@@ -1,0 +1,157 @@
+<Cluster>
+	<MaxTime>4680</MaxTime>
+	<Rank value="Rank 0">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>130</tsStart>
+			<tsEnd>140</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+			 <ts>220</ts>
+		</MPI_Finallize>
+		<Send label="Send">
+			<tsStart>180</tsStart>
+			<tsEnd>210</tsEnd>
+		</Send>
+	</Rank>
+
+	<Rank value="Rank 1">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>520</tsStart>
+			<tsEnd>520</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>2200</ts>
+		</MPI_Finallize>
+		<Send label="Send">
+			<tsStart>580</tsStart>
+			<tsEnd>2190</tsEnd>
+		</Send>
+		<Recv label="Recv">
+			<tsStart>540</tsStart>
+			<tsEnd>560</tsEnd>
+		</Recv>
+	</Rank>
+
+	<Rank value="Rank 2">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>100</tsStart>
+			<tsEnd>100</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>2520</ts>
+		</MPI_Finallize>
+		<Send label="Send">
+			<tsStart>2480</tsStart>
+			<tsEnd>2510</tsEnd>
+		</Send>
+		<Recv label="Recv">
+			<tsStart>120</tsStart>
+			<tsEnd>2200</tsEnd>
+		</Recv>
+	</Rank>
+
+	<Rank value="Rank 3">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>460</tsStart>
+			<tsEnd>460</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>4360</ts>
+		</MPI_Finallize>
+		<Send label="Send">
+			<tsStart>2950</tsStart>
+			<tsEnd>4350</tsEnd>
+		</Send>
+		<Recv label="Recv">
+			<tsStart>480</tsStart>
+			<tsEnd>2560</tsEnd>
+		</Recv>
+	</Rank>
+	
+		<Rank value="Rank 4">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>400</tsStart>
+			<tsEnd>400</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>4420</ts>
+		</MPI_Finallize>
+		<Send label="Send">
+			<tsStart>4380</tsStart>
+			<tsEnd>4410</tsEnd>
+		</Send>
+		<Recv label="Recv">
+			<tsStart>420</tsStart>
+			<tsEnd>4360</tsEnd>
+		</Recv>
+	</Rank>
+	
+	<Rank value="Rank 5">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>700</tsStart>
+			<tsEnd>700</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>4600</ts>
+		</MPI_Finallize>
+		<Send label="Send">
+			<tsStart>4560</tsStart>
+			<tsEnd>4590</tsEnd>
+		</Send>
+		<Recv label="Recv">
+			<tsStart>710</tsStart>
+			<tsEnd>4450</tsEnd>
+		</Recv>
+	</Rank>
+	
+	<Rank value="Rank 6">
+		<MPI_comm_rank label="MPI_comm_rank">
+			<tsStart>1600</tsStart>
+			<tsEnd>1600</tsEnd>
+		</MPI_comm_rank>
+		<MPI_Finallize label="MPI_Finallize">
+		 	<ts>4810</ts>
+		</MPI_Finallize>
+		<Recv label="Recv">
+			<tsStart>1620</tsStart>
+			<tsEnd>4680</tsEnd>
+		</Recv>
+	</Rank>
+	
+	<Message senderRank="0" receiverRank="1">
+		<tsStart>190</tsStart>
+		<tsEnd>560</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+	<Message senderRank="1" receiverRank="2">
+		<tsStart>580</tsStart>
+		<tsEnd>2200</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+	<Message senderRank="2" receiverRank="3">
+		<tsStart>2490</tsStart>
+		<tsEnd>2560</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+	<Message senderRank="3" receiverRank="4">
+		<tsStart>2960</tsStart>
+		<tsEnd>4350</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+	<Message senderRank="4" receiverRank="5">
+		<tsStart>4390</tsStart>
+		<tsEnd>4440</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+	<Message senderRank="5" receiverRank="6">
+		<tsStart>4570</tsStart>
+		<tsEnd>4670</tsEnd>
+		<tag>0</tag>
+		<sz>4</sz>
+	</Message>
+</Cluster>

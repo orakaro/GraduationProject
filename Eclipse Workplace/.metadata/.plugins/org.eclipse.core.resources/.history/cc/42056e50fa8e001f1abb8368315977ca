@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<web-app>
+
+  <servlet>
+    <servlet-name>TestJDBC</servlet-name>
+    <servlet-class>databaseconnect.TestJDBC</servlet-class>
+  </servlet>
+ 
+<servlet>
+ <servlet-name>Lab3TestServlet</servlet-name>
+ <servlet-class>lab3.Lab3TestServlet</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>TestAdd</servlet-name>
+ <servlet-class>databaseconnect.TestAdd</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>TestUpdate</servlet-name>
+ <servlet-class>databaseconnect.TestUpdate</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>TestDel</servlet-name>
+ <servlet-class>databaseconnect.TestDel</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>UpdateExe</servlet-name>
+ <servlet-class>databaseconnect.UpdateExe</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>User</servlet-name>
+ <servlet-class>databaseconnect.User</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>Henkyaku</servlet-name>
+ <servlet-class>databaseconnect.Henkyaku</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>Kashidasu</servlet-name>
+ <servlet-class>databaseconnect.Kashidasu</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>KashidasuExe</servlet-name>
+ <servlet-class>databaseconnect.KashidasuExe</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>sori</servlet-name>
+ <servlet-class>databaseconnect.sori</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>ViewComments</servlet-name>
+ <servlet-class>databaseconnect.ViewComments</servlet-class>
+ </servlet>
+
+<servlet>
+ <servlet-name>CommentsAdd</servlet-name>
+ <servlet-class>databaseconnect.CommentsAdd</servlet-class>
+ </servlet>
+
+
+
+
+
+  <servlet-mapping>  
+    <servlet-name>CommentsAdd</servlet-name>
+    <url-pattern>/servlets/CommentsAdd</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>ViewComments</servlet-name>
+    <url-pattern>/servlets/ViewComments</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>sori</servlet-name>
+    <url-pattern>/servlets/sori</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>KashidasuExe</servlet-name>
+    <url-pattern>/servlets/KashidasuExe</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>Kashidasu</servlet-name>
+    <url-pattern>/servlets/Kashidasu</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>Henkyaku</servlet-name>
+    <url-pattern>/servlets/Henkyaku</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>User</servlet-name>
+    <url-pattern>/servlets/User</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>UpdateExe</servlet-name>
+    <url-pattern>/servlets/UpdateExe</url-pattern>
+  </servlet-mapping> 
+
+  <servlet-mapping>  
+    <servlet-name>TestDel</servlet-name>
+    <url-pattern>/servlets/TestDel</url-pattern>
+  </servlet-mapping>  
+
+  <servlet-mapping>  
+    <servlet-name>TestUpdate</servlet-name>
+    <url-pattern>/servlets/TestUpdate</url-pattern>
+  </servlet-mapping>  
+
+
+  <servlet-mapping>  
+    <servlet-name>TestJDBC</servlet-name>
+    <url-pattern>/servlets/TestJDBC</url-pattern>
+  </servlet-mapping>  
+
+  <servlet-mapping>  
+    <servlet-name>TestAdd</servlet-name>
+    <url-pattern>/servlets/TestAdd</url-pattern>
+  </servlet-mapping>  
+
+
+  <servlet-mapping>
+  <servlet-name>Lab3TestServlet</servlet-name>
+  <url-pattern>/servlets/Lab3TestServlet</url-pattern>
+  </servlet-mapping>
+
+ </web-app>

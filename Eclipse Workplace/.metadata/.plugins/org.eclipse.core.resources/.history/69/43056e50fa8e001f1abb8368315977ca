@@ -1,0 +1,21 @@
+<form name="form1" action="http://localhost:8080/DatabaseConnect/servlets/TestJDBC" method="POST">
+<input type="text" name="text1">
+<input type="submit" value="Send">
+</form>
+
+<form name="form2" action="http://localhost:8080/DatabaseConnect/servlets/TestAdd" 
+method="POST">
+<table border =1>
+<tr><td>ID</td><td>AUTHOR</td><td>TITLE</td><td>PUBLISHER</td><td>PRICE</td><td>ISBN</td></tr>
+<tr>
+<td><input type="text" name="DTVD1"></td>
+<td><input type="text" name="DTVD2"></td>
+<td><input type="text" name="DTVD3"></td>
+<td><input type="text" name="DTVD4"></td>
+<td><input type="text" name="DTVD5"></td>
+<td><input type="text" name="DTVD6"></td>
+</tr>
+<table>
+<input type="submit" value="Add">
+<button type="reset">Clear</button>
+</form>

@@ -1,0 +1,62 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class UpdateExe extends HttpServlet {
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	String U1= req.getParameter("D1");
+	String U2= req.getParameter("D2");
+	String U3= req.getParameter("D3");
+	String U4= req.getParameter("D4");
+	String U5= req.getParameter("D5");
+	String U6= req.getParameter("D6");
+
+	writer.println("<html>");
+	writer.println("<body>");
+	
+	writer.println("<h1>Update Done!</h1>");
+
+	
+	try {
+		Class.forName("org.gjt.mm.mysql.Driver");
+		String url = "jdbc:mysql://localhost/lab3?characterEncoding=utf8";
+		Connection con = DriverManager.getConnection(url,"cs0000ie","w1158538");
+		
+		Statement stmt = con.createStatement();
+		String sql = "UPDATE BOOKLIST SET ID= '"+U1+"', AUTHOR = '"+U2+"', TITLE = '"+U3+"', PUBLISHER = '"+U4+"', PRICE = '"+U5+"', ISBN = '"+U6+"' WHERE ID ='"+U1+"'";    
+
+		int rs = stmt.executeUpdate(sql);
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	writer.println("</body>");
+	writer.println("</html>");
+}
+}
+
+
+
+
+
+
+	

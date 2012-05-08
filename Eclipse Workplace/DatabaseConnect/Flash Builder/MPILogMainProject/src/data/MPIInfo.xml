@@ -1,0 +1,81 @@
+<Cluster>
+<MaxTime>1410.0</MaxTime>
+<Rank value="Rank 0">
+<MPI_comm_rank label="MPI_comm_rank">
+<tsStart>100.0</tsStart>
+<tsEnd>110.0</tsEnd>
+</MPI_comm_rank>
+<MPI_Finallize label="MPI_Finallize">
+<ts>390.0</ts>
+</MPI_Finallize>
+<Send label="Send">
+<tsStart>340.0</tsStart>
+<tsEnd>370.0</tsEnd>
+</Send>
+<Send label="Send">
+<tsStart>370.0</tsStart>
+<tsEnd>390.0</tsEnd>
+</Send>
+</Rank>
+<Rank value="Rank 1">
+<MPI_comm_rank label="MPI_comm_rank">
+<tsStart>140.0</tsStart>
+<tsEnd>150.0</tsEnd>
+</MPI_comm_rank>
+<MPI_Finallize label="MPI_Finallize">
+<ts>830.0</ts>
+</MPI_Finallize>
+<Recv label="Recv">
+<tsStart>160.0</tsStart>
+<tsEnd>520.0</tsEnd>
+</Recv>
+</Rank>
+<Rank value="Rank 2">
+<MPI_comm_rank label="MPI_comm_rank">
+<tsStart>640.0</tsStart>
+<tsEnd>640.0</tsEnd>
+</MPI_comm_rank>
+<MPI_Finallize label="MPI_Finallize">
+<ts>1410.0</ts>
+</MPI_Finallize>
+<Recv label="Recv">
+<tsStart>650.0</tsStart>
+<tsEnd>670.0</tsEnd>
+</Recv>
+<Recv label="Recv">
+<tsStart>670.0</tsStart>
+<tsEnd>1060.0</tsEnd>
+</Recv>
+</Rank>
+<Rank value="Rank 3">
+<MPI_comm_rank label="MPI_comm_rank">
+<tsStart>1010.0</tsStart>
+<tsEnd>1010.0</tsEnd>
+</MPI_comm_rank>
+<MPI_Finallize label="MPI_Finallize">
+<ts>1370.0</ts>
+</MPI_Finallize>
+<Send label="Send">
+<tsStart>1020.0000000000001</tsStart>
+<tsEnd>1060.0</tsEnd>
+</Send>
+</Rank>
+<Message senderRank="0" receiverRank="1">
+<tsStart>350.0</tsStart>
+<tsEnd>520.0</tsEnd>
+<tag>0</tag>
+<sz>4</sz>
+</Message>
+<Message senderRank="0" receiverRank="2">
+<tsStart>370.0</tsStart>
+<tsEnd>660.0</tsEnd>
+<tag>0</tag>
+<sz>4</sz>
+</Message>
+<Message senderRank="3" receiverRank="2">
+<tsStart>1030.0</tsStart>
+<tsEnd>1060.0</tsEnd>
+<tag>0</tag>
+<sz>4</sz>
+</Message>
+</Cluster>

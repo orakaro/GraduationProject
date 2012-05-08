@@ -1,0 +1,59 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class TestAdd extends HttpServlet {
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	String D1= req.getParameter("DTVD1");
+	String D2= req.getParameter("DTVD2");
+	String D3= req.getParameter("DTVD3");
+	String D4= req.getParameter("DTVD4");
+	String D5= req.getParameter("DTVD5");
+	String D6= req.getParameter("DTVD6");
+
+	writer.println("<html>");
+	writer.println("<body>");
+	
+	try {
+		Class.forName("org.gjt.mm.mysql.Driver");
+		String url = "jdbc:mysql://localhost/lab3?characterEncoding=utf8";
+		Connection con = DriverManager.getConnection(url,"cs0000ie","w1158538");
+		
+		Statement stmt = con.createStatement();
+		String sql = "INSERT INTO BOOKLIST (ID,AUTHOR,TITLE,PUBLISHER,PRICE,ISBN) values ("+D1+",\""+D2+"\",\""+D3+"\",\""+D4+"\","+D5+","+D6+" ) ";
+		int rs = stmt.executeUpdate(sql);
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	writer.println("<h1>Done!</h1>");
+	
+	writer.println("</body>");
+	writer.println("</html>");
+}
+}
+
+
+
+
+
+
+	

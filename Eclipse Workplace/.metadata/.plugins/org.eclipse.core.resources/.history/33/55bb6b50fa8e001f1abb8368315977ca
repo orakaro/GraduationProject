@@ -1,0 +1,134 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+
+public class TestJDBC extends HttpServlet {
+
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	//String w = req.getParameter("text1");
+	writer.println("<html>");
+	//writer.println("<head>");
+	
+
+
+//	writer.println("</head>");
+	writer.println("<body>");
+	int x=1;
+	//Form start
+	writer.println("<form name=\"form1\" >");
+	writer.println("<h1>BOOKLIST ver 1.0</h1>");
+	writer.println("<h4>DTVD</h4>");
+	writer.println("<table border = 1>");
+	writer.println("<tr><td></td><td>ID</td><td>AUTHOR</td><td>TITLE</td><td>PUBLISHER</td><td>PRICE</td><td>ISBN</td></tr>");
+	
+	
+	try {
+		Class.forName("org.gjt.mm.mysql.Driver");
+		String url = "jdbc:mysql://localhost/lab3?characterEncoding=utf8";
+		Connection con = DriverManager.getConnection(url,"cs0000ie","w1158538");
+		
+		Statement stmt = con.createStatement();
+		//String sql = "SELECT * FROM BOOKLIST WHERE AUTHOR LIKE '%"+w+"%' OR TITLE LIKE '%"+w+"%' ORDER BY ID";
+		String sql = "SELECT * FROM BOOKLIST ORDER BY ID";
+		//writer.println("<h4>"+sql+"</h4>");
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()){
+		String author = rs.getString("AUTHOR");
+		String id = rs.getString("ID");
+		String title = rs.getString("TITLE");
+		String publisher = rs.getString("PUBLISHER");
+		String price = rs.getString("PRICE");
+		String isbn = rs.getString("ISBN");
+		writer.println("<tr><td> <INPUT TYPE=RADIO NAME=\"UD\" VALUE="+id+" onClick=\"takeValue();\"></td><td>"+id+"</td>"+"<td>"+author+"</td>"+"<td>"+title+"</td>"+"<td>"+publisher+"</td>"+"<td>"+price+"</td>"+"<td>"+isbn+"</td></tr>");
+		x++;
+		}
+		
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	writer.println("</table>");
+	writer.println("</form>");
+	writer.println("<br>");
+	//Form end
+	
+	
+	
+	//form Add
+	writer.println("<form name=\"form4\" action=\"http://localhost:8080/DatabaseConnect/servlets/TestAdd\" method=\"POST\" >");
+	writer.println("<table border = 1>");
+	writer.println("<tr><td>ID</td><td>AUTHOR</td><td>TITLE</td><td>PUBLISHER</td><td>PRICE</td><td>ISBN</td></tr>");
+	writer.println("<tr>");
+	writer.println("<td><input type=\"text\" name=\"DTVD1\" ></td>");
+	writer.println("<td><input type=\"text\" name=\"DTVD2\" ></td>");
+	writer.println("<td><input type=\"text\" name=\"DTVD3\" ></td>");
+	writer.println("<td><input type=\"text\" name=\"DTVD4\" ></td>");
+	writer.println("<td><input type=\"text\" name=\"DTVD5\" ></td>");
+	writer.println("<td><input type=\"text\" name=\"DTVD6\" ></td>");
+	writer.println("</tr>");
+	writer.println("</table>");
+	writer.println("<input type=\"submit\" value=\"Add\" >");
+	writer.println("<button type=\"reset\">Clear</button>");
+	writer.println("</form>");
+	writer.println("<br><br>");
+	
+	//Update Button
+	writer.println("<form name=\"form2\" action=\"http://localhost:8080/DatabaseConnect/servlets/TestUpdate\" method=\"POST\" >");
+	writer.println("<input type=\"hidden\" name = \"text_update\" >");
+	writer.println("<input type=\"submit\" value=\"Update\" >");
+	writer.println("</form>");
+
+	//Delete Button
+	writer.println("<form name=\"form3\" action=\"http://localhost:8080/DatabaseConnect/servlets/TestDel\" method=\"GET\" >");
+	writer.println("<input type=\"hidden\" name = \"text_del\" >");
+	writer.println("<input type=\"submit\" value=\"Del\" onclick=\"return Confirmation()\">");
+	writer.println("</form>");
+	
+	
+	
+	//Java Script
+	writer.println("<script languge=\"javascript\">");
+	
+	writer.println("function Confirmation(){");
+	writer.println("var answer = confirm(\"Are u sure?\");");
+	writer.println("if (answer) return true; ");
+	writer.println("else { alert(\"Be careful next time, guy!\"); return false; }");
+	writer.println("}");
+	
+	writer.println("function takeValue(){");
+	writer.println("var i;");
+	writer.println("for(i=1;i<"+x+";i++){");
+	writer.println("if (document.form1.UD[i-1].checked) {document.form2.text_update.value=document.form1.UD[i-1].value;document.form3.text_del.value=document.form1.UD[i-1].value;}");
+	writer.println("}");
+	writer.println("}");
+	
+	writer.println("</script>");
+	
+	
+	
+	writer.println("</body>");
+	writer.println("</html>");
+	
+}
+}

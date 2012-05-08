@@ -1,0 +1,107 @@
+package databaseconnect;
+
+import ch.ethz.ssh2.*;
+import ch.ethz.ssh2.Connection;
+
+//import java.io.*;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+//import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class FileExec extends HttpServlet {
+    public static String[] rbuf=new String[100];
+    public static int lineCount=0;
+	private static final String hostname = "tbtex";
+	private static final String userid = "root";
+	private static final String password = "h!ked@";
+	final int BUFFER_SIZE = 4096;
+/*
+	public static void main(String[] arg) {
+		try {
+			sori test = new sori();
+			
+			test.doProc(3);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+*/
+	public void doProc(int nodeNum) throws IOException {
+	
+			lineCount=0;
+			// connect & login
+			Connection conn = new Connection(hostname);
+			conn.connect();
+			boolean result = conn.authenticateWithPassword(userid, password);
+
+			if (result) {
+
+				
+//======================================
+				SCPClient scp = conn.createSCPClient();
+				scp.put(UFileName, "~/");
+				
+				
+				
+				
+				
+//======================================
+				
+				
+				
+				Session session = conn.openSession();
+				session.execCommand("mpicc -o /root/v-minh/hello /root/v-minh/hello.c && mpdboot && mpiexec -n "+nodeNum+" /root/v-minh/hello");
+				streamToString(session.getStdout());
+				for(int i=0;i<lineCount;i++)
+						System.out.println(rbuf[i]);
+				session.close();
+			}
+			conn.close();
+	}
+
+
+	// read InputStream and return output as String
+	private void streamToString(InputStream is) throws IOException {
+		
+		if (is != null) {           
+			                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+			                while ( (rbuf[lineCount]=reader.readLine()) != null) {
+			                    lineCount++;
+			                }
+		} else {       
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter writer = resp.getWriter();
+		String w = req.getParameter("nodeNum");
+		int n = Integer.parseInt(w);
+		
+
+		writer.println("<html>");
+		writer.println("<body>");
+			doProc(n);
+		writer.println("<p>**********************************************</p>");
+		for(int i=0;i<lineCount;i++)
+			writer.println("<p>" + rbuf[i] + "</p>");
+		writer.println("<p>**********************************************</p>");
+		writer.println("</body>");
+		writer.println("</html>");
+	}
+}

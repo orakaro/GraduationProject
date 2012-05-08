@@ -1,0 +1,56 @@
+package databaseconnect;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class TestDel extends HttpServlet {
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public void doGet(HttpServletRequest req, HttpServletResponse resp)
+throws IOException {
+	req.setCharacterEncoding("utf-8");
+	resp.setContentType("text/html;charset=utf-8");
+	PrintWriter writer = resp.getWriter();
+	String w = req.getParameter("text_del");
+
+	writer.println("<html>");
+	writer.println("<body>");
+	
+	writer.println("<h1>Deleted!</h1>");
+
+	
+	try {
+		Class.forName("org.gjt.mm.mysql.Driver");
+		String url = "jdbc:mysql://localhost/lab3?characterEncoding=utf8";
+		Connection con = DriverManager.getConnection(url,"cs0000ie","w1158538");
+		
+		Statement stmt = con.createStatement();
+		String sql = "DELETE FROM BOOKLIST WHERE ID="+w+";";
+		int rs = stmt.executeUpdate(sql);
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	writer.println("</body>");
+	writer.println("</html>");
+}
+}
+
+
+
+
+
+
+	

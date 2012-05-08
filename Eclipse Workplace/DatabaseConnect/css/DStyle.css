@@ -1,0 +1,37 @@
+body {
+	font-size: 100%;
+	font-family: Tahoma, sans-serif;
+}
+
+p, li {
+	font-size: 3em;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h3 {
+	font-size: 3em;
+}
+
+#page-wrap {
+	margin: 20px auto;
+	width: 750px;
+}
+
+textarea {
+	width: 800px;
+	height: 400px;
+	border: 3px solid #cccccc;
+	padding: 5px;
+	font-family: Tahoma, sans-serif;
+	background-image: url(bg.gif);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+.class1 {
+	  color:#050; 
+	  font: bold 84%'trebuchet ms',helvetica,sans-serif; 
+	  background-color: #fed; 
+} 
